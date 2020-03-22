@@ -1,7 +1,7 @@
 class Node(object):
-    def __int__(self, data=None, next_node=None):
+    def __init__(self, data=None, next_node=None):
         self.data = data
-        self.next_node = None
+        self.next_node = next_node
 
     def get_data(self):
         return self.data
@@ -30,7 +30,7 @@ def deleteNode(head,position):
 def insertNode(head, element):
     newnode = Node(element)
     node = head
-    while node.next_node != Node:
+    while node.next_node != None:
         node = node.next_node
     node.next_node = newnode
     return head
