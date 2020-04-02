@@ -1,7 +1,7 @@
 class Node(object):
     def __init__(self, data=None, next_node=None):
         self.data = data
-        self.next_node = next_node
+        self.next_node = None
 
     def get_data(self):
         return self.data
@@ -17,7 +17,7 @@ def showlinkedlist(head):
         print(head.data)
         head = head.next_node
 
-def deleteNode(head,position):
+def deleteNode(head, position):
     if position == 0:
         return  head.next_node
     count = 0
@@ -30,7 +30,7 @@ def deleteNode(head,position):
 def insertNode(head, element):
     newnode = Node(element)
     node = head
-    while node.next_node != None:
+    while node.next_node != Node:
         node = node.next_node
     node.next_node = newnode
     return head
