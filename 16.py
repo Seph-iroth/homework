@@ -16,12 +16,12 @@ def countDigit(n):
         n //= 10
         count+= 1
     return count
-def generateUnstoredArray(num): #how many element you want
+def generateUnstoredArray(num): # generate a num of size random Unstored array
     list = []
     for i in range(num):
         list.append(randint(0, 100))
     return list
-def serach10(list):
+def serach10(list): # search for 10 in the array
     index = []
     count = 0
     for i in list:
@@ -45,14 +45,14 @@ def findMiddle(list):
 def dele2(list):
    list.pop(1)
    return list
-def bubblesort(array):
+def bubblesort(array): #O(n^2)
     n = len(array)
     for i in range(n):
         for j in range(0, n - i - 1):
             if array[j] > array[j + 1]:
                 array[j], array[j + 1] = array[j + 1], array[j]
     return array
-def insertionSort(array):
+def insertionSort(array): #O    (n^2)
     for i in range(1,len(array)):
         pos = i
         temp = array[i]
@@ -61,7 +61,7 @@ def insertionSort(array):
             pos = pos - 1
         array[pos] = temp
     return array
-def seletionSort(array):
+def seletionSort(array):#   O(n^2)
     for i in range(len(array)):
         min_idx = i
         for j in range(i + 1, len(array)):
@@ -69,7 +69,7 @@ def seletionSort(array):
                 min_idx = j
         array[i], array[min_idx] = array[min_idx], array[i]
     return array
-def mergeSort(array):
+def mergeSort(array):#  O(n log(n)
     if len(array) > 1:
         mid = len(array) // 2
         L = array[:mid]
@@ -106,71 +106,66 @@ def outputExample(array):
     print("seletionSort: ", seletionSort(array))
 
 #time the runtime 10 times and take the average
-def timing(array):
-    y1 = 0
-    y2 = 0
-    y3 = 0
-    y4 = 0
-    y5 = 0
-    y6 = 0
-    y7 = 0
-    y8 = 0
+def timing(arraysize):
+    timearray = [0,0,0,0,0,0,0,0]
     for i in range(10):
+        array = generateUnstoredArray(arraysize)
+        #generate samesize random array 10 times
         start = time.time()
         findMiddle(array)
         end = time.time()
-        y1 = end - start + y1
+        timearray[0] = end - start + timearray[0]
 
         start = time.time()
         serach10(array)
         end = time.time()
-        y2 = end - start + y2
+        timearray[1] = end - start + timearray[1]
 
         start = time.time()
         insertw(230, array)
         end = time.time()
-        y3 = end - start + y3
+        timearray[2] = end - start + timearray[2]
 
         start = time.time()
         dele2(array)
         end = time.time()
-        y4 = end - start + y4
+        timearray[3] = end - start + timearray[3]
 
         start = time.time()
         bubblesort(array)
         end = time.time()
-        y5 = end - start + y5
+        timearray[4] = end - start + timearray[4]
 
         start = time.time()
         mergeSort(array)
         end = time.time()
-        y6 = end - start + y6
+        timearray[5] = end - start + timearray[5]
 
         start = time.time()
         insertionSort(array)
         end = time.time()
-        y7 = end - start + y7
+        timearray[6] = end - start + timearray[6]
 
         start = time.time()
         seletionSort(array)
         end = time.time()
-        y8 = end - start + y8
-    return [y1/10,y2/10,y3/10,y4/10,y5/10,y6/10,y7/10,y8/10]
-#return the a row of one array timing
-def finaltimetable(arraysize):
+        timearray[7] = end - start + timearray[7]
+    output =[]
+    for i in timearray:
+        output.append(i/10) #/10 to get the average
+    return out#return the a row of one array timing
+def finaltimetable(arraysize): # arange the table
     print('    n       read          search        Insert        Delete        bubble sort   <n^2 sort     insertionSort seletionSort')
     timeOfEachArraySize = []
     for i in arraysize:
-        array = generateUnstoredArray(i)
-        timelist = timing(array)
+        timelist = timing(i)
         timeOfEachArraySize.append(timelist)
         print((countDigit(arraysize[-1])-countDigit(i))*" ",i, end='       ')
         for i in timelist:
             print("{:.2e}".format(i), end="      ")
-
         print("\n")
     return timeOfEachArraySize
-def ploting(times, arraysize):
+def ploting(times, arraysize): #plot the time verse zrray size
     ccount = 0
     for i in range(len(times[1])):
         runtime = []
@@ -184,9 +179,13 @@ def ploting(times, arraysize):
     plt.show()
 
 def main():
+    start = time.time()
     arrays = generateUnstoredArray(5)
     outputExample(arrays)
-    arraysize = [1,10,20,40,80,160,500,1000,2000,3000,4000,6000,10000]
+    arraysize = [1,10,20,40,80,160,500,1000,3000]#,4500,6000,10000,20000,50000]
     times = finaltimetable(arraysize)
-    ploting(times,arraysize)
+    end = time.time()
+    print("Total runtime: ", ((round((end - start)/60, 4))), " min")
+    ploting(times, arraysize)
+
 main()
