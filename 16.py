@@ -153,8 +153,12 @@ def timing(arraysize):
     output =[]
     for i in timearray:
         output.append(i/10) #/10 to get the average
+<<<<<<< HEAD
     return output
 #return the a row of one array timing
+=======
+    return output#return the a row of one array timing
+>>>>>>> b2a5d27ec8f9a40f94533b3e9e82e7fa8c78328b
 def finaltimetable(arraysize): # arange the table
     print('    n       read          search        Insert        Delete        bubble sort   <n^2 sort     insertionSort seletionSort')
     timeOfEachArraySize = []
